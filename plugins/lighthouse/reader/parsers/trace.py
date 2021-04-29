@@ -28,5 +28,11 @@ class TraceData(CoverageFile):
         hitmap = collections.defaultdict(int)
         with open(self.filepath) as f:
             for line in f:
-                hitmap[int(line, 16)] += 1
+                address_string = line.split(' ')[0]
+                try:
+                    address = int(address_string, 16)
+                    if address:
+                        hitmap[int(address_string, 16)] += 1
+                except:
+                    pass
         self._hitmap = hitmap
